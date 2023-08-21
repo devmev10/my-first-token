@@ -2,15 +2,27 @@ const { ethers } = require("hardhat");
 const { expect } = require("chai");
 
 describe("Token", () => {
-  it("has a name", async () => {
+  let token;
+  beforeEach(async () => {
     // fetch token from blockchain
     const Token = await ethers.getContractFactory("Token");
-    const token = await Token.deploy();
+    token = await Token.deploy();
+  });
 
-    // Read token name
-    const name = await token.name();
+  it("has correct name", async () => {
+    expect(await token.name()).to.equal("Dapp University");
+  });
 
-    // Check that the name is correct
-    expect(name).to.equal("My Token");
+  it("has correct symbol", async () => {
+    expect(await token.symbol()).to.equal("DAPP");
+  });
+
+  it("has correct decimals", async () => {
+    expect(await token.decimals()).to.equal("18");
+  });
+
+  it("has correct total supply", async () => {
+    const value = ethers.utils.parseUnits("1000000", "ether");
+    expect(await token.totalSupply()).to.equal(value);
   });
 });
