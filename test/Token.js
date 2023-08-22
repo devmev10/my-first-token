@@ -6,9 +6,7 @@ const tokens = (n) => {
 };
 
 describe("Token", () => {
-  let token;
-  let accounts;
-  let deployer;
+  let token, accounts, deployer;
 
   beforeEach(async () => {
     // fetch token from blockchain
