@@ -50,14 +50,6 @@ describe("Token", () => {
 
     it("Transfer token balances", async () => {
       // log balance before transfer
-      console.log(
-        "Deployer balance before transfer:",
-        await token.balanceOf(deployer.address)
-      );
-      console.log(
-        "Receiver balance before transfer:",
-        await token.balanceOf(receiver.address)
-      );
 
       // transfer tokens
       amount = tokens(100);
@@ -66,15 +58,8 @@ describe("Token", () => {
         .transfer(receiver.address, amount);
       let result = transaction.wait();
 
-      // log balance after transfer
-      console.log(
-        "Deployer balance after transfer:",
-        await token.balanceOf(deployer.address)
-      );
-      console.log(
-        "Receiver balance after transfer:",
-        await token.balanceOf(receiver.address)
-      );
+      expect(await token.balanceOf(deployer.address)).to.equal(tokens(999900));
+      expect(await token.balanceOf(receiver.address)).to.equal(amount);
 
       // ensure tokens transfered
     });
