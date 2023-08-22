@@ -6,7 +6,7 @@ const tokens = (n) => {
 };
 
 describe("Token", () => {
-  let token, accounts, deployer;
+  let token, accounts, deployer, receiver;
 
   beforeEach(async () => {
     // fetch token from blockchain
@@ -15,6 +15,7 @@ describe("Token", () => {
 
     accounts = await ethers.getSigners();
     deployer = accounts[0];
+    receiver = accounts[1];
   });
 
   describe("Deployment", () => {
@@ -45,8 +46,36 @@ describe("Token", () => {
   });
 
   describe("Sending Token", () => {
-    it("Transfer token balances", () => {
+    let amount;
+
+    it("Transfer token balances", async () => {
+      // log balance before transfer
+      console.log(
+        "Deployer balance before transfer:",
+        await token.balanceOf(deployer.address)
+      );
+      console.log(
+        "Receiver balance before transfer:",
+        await token.balanceOf(receiver.address)
+      );
+
       // transfer tokens
+      amount = tokens(100);
+      let transaction = await token
+        .connect(deployer)
+        .transfer(receiver.address, amount);
+      let result = transaction.wait();
+
+      // log balance after transfer
+      console.log(
+        "Deployer balance after transfer:",
+        await token.balanceOf(deployer.address)
+      );
+      console.log(
+        "Receiver balance after transfer:",
+        await token.balanceOf(receiver.address)
+      );
+
       // ensure tokens transfered
     });
   });
