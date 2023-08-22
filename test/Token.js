@@ -45,23 +45,33 @@ describe("Token", () => {
     });
   });
 
-  describe("Sending Token", () => {
-    let amount;
+  describe("Sending Tokens", () => {
+    let amount, transaction, result;
 
-    it("Transfer token balances", async () => {
-      // log balance before transfer
-
-      // transfer tokens
+    beforeEach(async () => {
       amount = tokens(100);
-      let transaction = await token
+      transaction = await token
         .connect(deployer)
         .transfer(receiver.address, amount);
-      let result = transaction.wait();
+      result = await transaction.wait();
+    });
 
+    it("Transfer token balances", async () => {
+      // ensure tokens transfered
       expect(await token.balanceOf(deployer.address)).to.equal(tokens(999900));
       expect(await token.balanceOf(receiver.address)).to.equal(amount);
+    });
 
-      // ensure tokens transfered
+    it("Emits a Transfer event", async () => {
+      const event = result.events[0];
+
+      expect(event.event).to.equal("Transfer");
+
+      const args = event.args;
+
+      expect(args.from).to.equal(deployer.address);
+      expect(args.to).to.equal(receiver.address);
+      expect(args.value).to.equal(amount);
     });
   });
 });
