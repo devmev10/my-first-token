@@ -86,6 +86,15 @@ describe("Token", () => {
           token.connect(deployer).transfer(receiver.address, invalidAmount)
         ).to.be.reverted;
       });
+
+      it("rejects invalid recipent", async () => {
+        const amount = tokens(100);
+        await expect(
+          token
+            .connect(deployer)
+            .transfer("0x0000000000000000000000000000000000000000", amount)
+        ).to.be.reverted;
+      });
     });
   });
 });
