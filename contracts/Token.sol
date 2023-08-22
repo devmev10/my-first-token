@@ -10,7 +10,7 @@ contract Token {
     uint256 public totalSupply;
 
     //    track balances
-    mapping(address => uint256) balanceOf;
+    mapping(address => uint256) public balanceOf;
 
     constructor(
         string memory _name,

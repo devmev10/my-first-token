@@ -42,7 +42,7 @@ describe("Token", () => {
     });
 
     it("assigns total supply to deployer", async () => {
-      expect(await token.balanceOf(deployer)).to.equal(totalSupply);
+      expect(await token.balanceOf(deployer.address)).to.equal(totalSupply);
     });
   });
 });
