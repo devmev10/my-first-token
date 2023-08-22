@@ -43,4 +43,11 @@ describe("Token", () => {
       expect(await token.balanceOf(deployer.address)).to.equal(totalSupply);
     });
   });
+
+  describe("Sending Token", () => {
+    it("Transfer token balances", () => {
+      // transfer tokens
+      // ensure tokens transfered
+    });
+  });
 });
