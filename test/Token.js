@@ -10,7 +10,7 @@ describe("Token", () => {
   beforeEach(async () => {
     // fetch token from blockchain
     const Token = await ethers.getContractFactory("Token");
-    token = await Token.deploy("Dapp University", "DAPP", 1000000);
+    token = await Token.deploy("Dapp University", "DAPP", 1000000); //This feeds the Constructor function in Token.sol
   });
 
   describe("Deployment", () => {
