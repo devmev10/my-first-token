@@ -57,7 +57,7 @@ contract Token {
         balanceOf[_to] = balanceOf[_to] + _value;
 
         // Emit event
-        emit Transfer(msg.sender, _to, _value);
+        emit Transfer(_from, _to, _value);
     }
 
     function approve(
