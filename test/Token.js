@@ -155,7 +155,7 @@ describe("Token", () => {
     describe("Success", () => {
       beforeEach(async () => {
         transaction = await token
-          .connect(deployer)
+          .connect(exchange)
           .transferFrom(deployer.address, receiver.address, amount);
         result = await transaction.wait();
       });
@@ -165,6 +165,12 @@ describe("Token", () => {
           ethers.utils.parseUnits("999900", "ether")
         );
         expect(await token.balanceOf(receiver.address)).to.equal(amount);
+      });
+
+      it("resets the allowance", async () => {
+        expect(
+          await token.allowance(deployer.address, exchange.address)
+        ).to.equal(0);
       });
     });
   });
