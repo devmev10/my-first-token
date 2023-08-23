@@ -12,6 +12,9 @@ contract Token {
     //    track balances
     mapping(address => uint256) public balanceOf;
 
+    // allowance mapping
+    mapping(address => mapping(address => uint256)) public allowance;
+
     // define Event
     event Transfer(address indexed from, address indexed to, uint256 value);
 
@@ -45,4 +48,9 @@ contract Token {
 
         return true;
     }
+
+    function approve(
+        address _spender,
+        uint256 _value
+    ) public returns (bool success) {}
 }
