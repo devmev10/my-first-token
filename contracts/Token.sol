@@ -78,5 +78,6 @@ contract Token {
         uint256 _value
     ) public returns (bool success) {
         _transfer(_from, _to, _value);
+        return true;
     }
 }
