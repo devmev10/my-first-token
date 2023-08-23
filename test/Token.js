@@ -140,4 +140,29 @@ describe("Token", () => {
       });
     });
   });
+
+  describe("Delegated token transfers", () => {
+    let amount, transaction, result;
+
+    beforeEach(async () => {
+      amount = tokens(100);
+      transaction = await token
+        .connect(deployer)
+        .approve(exchange.address, amount);
+      result = await transaction.wait();
+    });
+
+    describe("Success", () => {
+      beforeEach(async () => {
+        transaction = await token
+          .connect(deployer)
+          .transferFrom(deployer.address, receiver.address, amount);
+        result = await transaction.wait();
+      });
+
+      it("Transfers token balances", async () => {});
+    });
+  });
+
+  describe("Failure", () => {});
 });

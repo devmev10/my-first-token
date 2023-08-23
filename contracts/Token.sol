@@ -41,18 +41,23 @@ contract Token {
     ) public returns (bool success) {
         // Require that sender has enough tokens to spend
         require(balanceOf[msg.sender] >= _value);
+
+        _transfer(msg.sender, _to, _value);
+
+        return true;
+    }
+
+    function _transfer(address _from, address _to, uint256 _value) internal {
         require(_to != address(0));
 
         // Deduct tokens from spender
-        balanceOf[msg.sender] = balanceOf[msg.sender] - _value;
+        balanceOf[_from] = balanceOf[_from] - _value;
 
         // Credit tokens to receiver
         balanceOf[_to] = balanceOf[_to] + _value;
 
         // Emit event
         emit Transfer(msg.sender, _to, _value);
-
-        return true;
     }
 
     function approve(
