@@ -160,7 +160,12 @@ describe("Token", () => {
         result = await transaction.wait();
       });
 
-      it("Transfers token balances", async () => {});
+      it("Transfers token balances", async () => {
+        expect(await token.balanceOf(deployer.address)).to.equal(
+          ethers.utils.parseUnits("999900", "ether")
+        );
+        expect(await token.balanceOf(receiver.address)).to.equal(amount);
+      });
     });
   });
 
